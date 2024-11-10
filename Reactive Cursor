@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio</title>
+  <style>
+    /* Basic styling for the page */
+    body {
+      cursor: none; /* Hide the default cursor */
+      background-color: rgb(15, 23, 42); /* Dark background for contrast */
+      color: #ffffff; /* Light text for visibility */
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 0;
+      padding-top: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Custom cursor with spotlight effect */
+    .custom-cursor {
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #142757 0%, transparent 60%);
+      filter: blur(20px); /* Blur effect to spread the light softly */
+      position: fixed;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      z-index: 1; /* Place cursor below text */
+      mix-blend-mode: screen; /* Blend cursor only with the background */
+      transition: transform 0.15s ease;
+    }
+
+    /* Ensure text remains above the cursor */
+    h1, p {
+      position: relative;
+      z-index: 2; /* Keeps text above the spotlight effect */
+    }
+
+    /* Responsiveness for smaller screens */
+    @media (max-width: 768px) {
+      .custom-cursor {
+        width: 200px;
+        height: 200px;
+      }
+    }
+    @media (max-width: 480px) {
+      .custom-cursor {
+        width: 100px;
+        height: 100px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="custom-cursor"></div>
+  <h1>Move your mouse to see the spotlight effect</h1>
+  <p>This custom cursor behaves like a light in a dark place.</p>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<a href="https://x.com/999J0ny" class="fa fa-twitter"></a>
+<a href="https://github.com/J0ny01" class="fa fa-github"></a>
+
+  <script>
+    // Select the custom cursor element
+    const cursor = document.querySelector('.custom-cursor');
+    let mouseX = 0, mouseY = 0; // Mouse position
+    let posX = 0, posY = 0;     // Cursor position
+
+    // Update mouse position on mouse move
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.pageX;
+      mouseY = e.pageY;
+    });
+
+    // Animate the cursor to follow the mouse smoothly
+    function animateCursor() {
+      // Apply easing for smooth following effect
+      posX += (mouseX - posX) * 0.15;
+      posY += (mouseY - posY) * 0.15;
+      
+      // Update custom cursor's position
+      cursor.style.left = `${posX}px`;
+      cursor.style.top = `${posY}px`;
+
+      // Recursively call the animation function
+      requestAnimationFrame(animateCursor);
+    }
+
+    // Start the cursor animation
+    animateCursor();
+  </script>
+</body>
+</html>
